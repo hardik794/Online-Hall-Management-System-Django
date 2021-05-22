@@ -1,0 +1,14 @@
+.address{
+  font-size: 13px;
+}
+.model-img{
+  height: 35vh;
+}
+.thead-dark{
+  background-color: black!important;
+  color: white;
+}
+.lab{
+  font-size: 18px;
+  font-weight: 900;
+}

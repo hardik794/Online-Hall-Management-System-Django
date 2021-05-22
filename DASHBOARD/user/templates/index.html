@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Customers</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'img/favicon.png' %}" rel="icon">
+  <link href="{% static 'img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <link href="{% static 'css/aos.css' %}" rel="stylesheet" type="text/css" media="screen">
+
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'css/logindash.css' %}" rel="stylesheet" type="text/css" media="screen">
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" media="screen">
+  <link href="{% static 'css/userdash.css' %}" rel="stylesheet" type="text/css" media="screen">
+  <link href="{% static 'css/vanue.css' %}" rel="stylesheet" type="text/css" media="screen">
+
+
+
+</head>
+
+<body style="background-color: rgb(255, 255, 255);">
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <div class="logo">
+        {% if user.is_authenticated %}
+        <h1>Welcome {{user.first_name}}</h1>
+        {% else %}
+        <h1>Nexus Hall</h1>
+        {% endif %}
+      </div>
+     
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li><a class="active" href="#hero">Home</a></li>
+          {% if user.is_authenticated %}
+          <li><a type="button" data-bs-toggle="modal" data-bs-target="#history">Show Booking</i></a>
+          </li>
+          <li><a type="button" data-bs-toggle="modal" data-bs-target="#historydata">Show History</i></a>
+          </li>
+          <li>
+            <a class="getstarted" href="{% url 'logout' %}">Logout</a>
+          </li>
+          {% else %}
+          <li>
+            <a class="getstarted" href="{% url 'register' %}">SignUp</a>
+          </li>
+          {% endif %}
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero">
+    
+    <div class="hero-container" data-aos="fade-up">
+      
+      {% if user.is_authenticated %}
+      {% if messages %}
+      {% for msg in messages %}
+      <div class="alert alert-warning alert-dismissible fade show mt-3" role="alert">
+        <strong>
+          <marquee style="width: 200px;">
+          {{ msg }}
+        </marquee>
+        </strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+      </div>
+      {% endfor %}
+      {% endif %}
+      {% endif %}
+
+      <h1>Hall management software for <br>special events,
+        weddings and more</h1>
+      <a href="#services" class="getstarted btn-get-started scrollto">Get Started</a>
+     
+    </div>
+  </section><!-- End Hero -->
+
+  <main id="main">
+
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about portfolio">
+      <div class="container">
+
+        <div class="row justify-content-center">
+          <div class="col-lg-11">
+            <div class="row justify-content-center p-3">
+
+              <!-- <ul id="portfolio-flters" class="d-flex justify-content-end" data-aos="fade-up">
+                <li data-filter="*" class="filter-active m-2">All</li>
+                <li data-filter=".filter-app" class="m-2">App</li>
+                <li data-filter=".filter-card" class="m-2">Card</li>
+                <li data-filter=".filter-web" class="m-2">Web</li>
+
+              </ul> -->
+
+            </div>
+          </div>
+        </div>
+
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+          {% for vanues in vanue %}
+          <div class="col">
+            <div class="card h-100">
+              <img src="{{vanues.Image.url}}" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">{{vanues.VanueName}}</h5>
+                <p class="text-muted address">{{vanues.VanueAddress}}</p>
+                <div class="row">
+                  <div class="col-5" style="font-weight: 700;">VenueType:</div>
+                  <div class="col-7">{{vanues.VanueType}}</div>
+                </div>
+                <div class="row">
+                  <div class="col-5" style="font-weight: 700;">Contact No:</div>
+                  <div class="col-7">{{vanues.Contact}}</div>
+                </div>
+                <!-- <div class="row">
+                  <div class="col-5" style="font-weight: 700;">Locality:</div>
+                  <div class="col-7">{{vanues.Status}}</div>
+                </div> -->
+                <!-- <div class="row">
+                  <div class="col-4">Price: </div>
+                  <div class="col-8">{{vanues.Status}}</div>
+                </div> -->
+              </div>
+              <div class="card-footer d-flex justify-content-end">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                  data-bs-target="#{{vanues.username}}">See Here</button>
+              </div>
+            </div>
+            <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog"
+              aria-labelledby="myExtraLargeModalLabel" aria-hidden="true" id="{{vanues.username}}">
+              <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalScrollableTitle">{{vanues.VanueName}}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row model-main">
+                      <div class="col-4 model-img">
+                        <img src="{{vanues.Image.url}}" class="card-img-top" alt="...">
+                      </div>
+                      <div class="col-8 model-des">
+                        <!-- <h3>{{vanues.VanueName}}</h3> -->
+                        <label class="text-muted">{{vanues.VanueAddress}}</label>
+                        <hr>
+                        <p class="text-muted">{{vanues.Description}}</p>
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row model-main">
+                      <div class="col-12">
+                        <h3>Pricing....</h3>
+                        <hr>
+                        <div class="col-12 model-des">
+                          <div class="row text-center">
+                            <div class="col-4">
+                              <span class="vcard" style="font-weight: 700;"> Per Day Rent: </span>{{vanues.PerDayRent}}
+                            </div>
+                            <div class="col-4">
+                              <span class="vcard" style="font-weight: 700;"> Price Per Dish:
+                              </span>{{vanues.PricePerDish}}
+                            </div>
+                            <div class="col-4">
+                              <span class="vcard" style="font-weight: 700;"> Music Rent: </span>{{vanues.MusicRent}}
+                            </div>
+                          </div>
+                          <div class="row text-center">
+
+                            <div class="col-4">
+                              <span class="vcard" style="font-weight: 700;"> Cateres Rent: </span>{{vanues.MusicRent}}
+                            </div>
+                            <div class="col-4">
+                              <span class="vcard" style="font-weight: 700;"> Decoretion Price:
+                              </span>{{vanues.MusicRent}}
+                            </div>
+                            <div class="col-4">
+                              <span class="vcard" style="font-weight: 700;">Service Rent: </span>{{vanues.ServiceRent}}
+                            </div>
+                          </div>
+                          <!-- <div class="row text-center">
+                            
+                          </div> -->
+                        </div>
+                      </div>
+                      <!-- <div class="col-6">
+                        <h3>Facility....</h3>
+                        <hr>
+                        <div class="col-12 model-des">
+                          <div class="row text-center">
+                            <div class="col-4">
+                              Price Per Dish:xyz
+                            </div>
+                            <div class="col-4">
+                              Price Per Dish:xyz
+                            </div>
+                            <div class="col-4">
+                              Price Per Dish:xyz
+                            </div>
+                          </div>
+                        </div>
+                      </div> -->
+                    </div>
+                    <hr>
+                    <div class="row text-center">
+                      <div class="col-12">
+                        <!-- <a href="#" class="btn btn-success" >BOOK</a> -->
+                        <p>
+                          {% if user.is_authenticated %}
+                          <button class="btn btn-success" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                            BOOK NOW
+                          </button>
+                          {% else %}
+                          <a class="btn btn-success" type="button" href="{% url 'login' %}">BOOK NOW</a>
+                          {% endif %}
+
+                        </p>
+                        <div class="collapse" id="collapseExample">
+                          <div class="card">
+                            <form action="book" method="POST">
+                              {% csrf_token %}
+                              <div class="container">
+
+                                <input type="hidden" name="loguname" value="{{user.username}}">
+                                <input type="hidden" name="vanuname" value="{{vanues.username}}">
+                                <input type="hidden" name="venue" value="{{vanues.VanueName}}">
+                                <div class="table-responsive-lg">
+                                  <table class="table">
+                                    <tr>
+                                      <td>
+                                        <div class="group">
+                                          <label for="uname" style="font-weight: 700;">Your Name:</label>
+                                          <input type="text" placeholder="Enter Name" name="name"
+                                            value="{{user.first_name}} {{user.last_name}}" required>
+                                        </div>
+                                      </td>
+                                      <td>
+                                        <div class="group">
+                                          <label for="uname" style="font-weight: 700;">Your Email:</label>
+                                          <input type="text" placeholder="Enter Email" name="email"
+                                            value="{{user.email}}" required>
+                                        </div>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <div class="group">
+                                          <label class="lab" style="font-weight: 700;">Your Mobile No:</label>
+                                          <input type="number" placeholder="Enter Mobile Number" name="number" required>
+                                        </div>
+                                      </td>
+                                      <td>
+                                        <div class="group">
+                                          <label class="lab" style="font-weight: 700;">Select Date:</label>
+                                          <input type="date" placeholder="Select Date" name="date" required>
+                                        </div>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <div class="group">
+                                          <label for="inputState" style="font-weight: 700;">Select Time:</label>
+                                          <select id="inputState" class="form-control" name="time">
+                                            <option selected value="day">Whole Day</option>
+                                            <option value="morning">Morning</option>
+                                            <option value="evening">Evening</option>
+
+                                          </select>
+                                        </div>
+                                      </td>
+
+                                      <td>
+                                        <div class="group">
+                                          <label for="inputState" style="font-weight: 700;">Select Packege:</label>
+                                          <select id="inputState" class="form-control" name="pkg">
+                                            <option selected value="silver">Silver</option>
+                                            <option value="gold">Gold</option>
+                                            <option value="platinium">Platinium</option>
+                                          </select>
+                                        </div>
+                                      </td>
+
+                                      <td>
+
+                                      </td>
+                                    </tr>
+
+                                  </table>
+                                  <!-- <div class="group">
+                                    <label class="lab" style="font-weight: 700;">Select Service:</label>
+                                    <input type="checkbox" name="service[]" value="music">Music
+                                    <input type="checkbox" name="service[]" value="Cateres">Cateres
+                                    <input type="checkbox" name="service[]" value="other">Other
+                                  </div> -->
+                                  <input type="submit" class="button" value="book">
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                      <hr>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section><!-- End About Section -->
+
+    <!-- ======= Cta Section ======= -->
+    <section id="cta" class="cta">
+      <div class="container" data-aos="fade-in">
+
+
+        <div class="text-center">
+          <h3>Register Your Venue</h3>
+          <p> Don’t beat around the bush. Travelers and meeting planners shouldn’t have to think about what to do next,
+            so be clear with directives. These include, “Buy your escape now,” “book now,” “make your reservation now,”
+            “submit your RFP here,” or “schedule a site tour today.” </p>
+          <a class="cta-btn"
+            href="https://docs.google.com/forms/d/e/1FAIpQLSc4jjCl_yl2MQEo4-2nmBlPZ7JJXKJGLJ4zrhr60vjT7vS8tg/viewform?usp=sf_link"
+            target="_blank">Call To Register</a>
+        </div>
+
+      </div>
+    </section><!-- End Cta Section -->
+
+    <section id="services" class="services fet">
+      <div class="container">
+
+        <div class="section-title" data-aos="zoom-out">
+          <h2>Services</h2>
+          <p>What we do offer</p>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-4 col-md-6">
+            <div class="icon-box" data-aos="zoom-in-left">
+              <div class="icon"><i class="bi bi-geo" style="color: #ff689b;"></i></div>
+              <h4 class="title"><a href="">Location</a></h4>
+              <p class="description">Choose a place that is within a reasonable distance from most attendees' homes.The
+                site near hotels or Airport are more suitable.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mt-5 mt-md-0">
+            <div class="icon-box" data-aos="zoom-in-left" data-aos-delay="100">
+              <div class="icon"><i class="bi bi-patch-check" style="color: #e92806;"></i></div>
+              <h4 class="title"><a href="">Parking</a></h4>
+              <p class="description">Look for the parking lot before finalizing the venue so that attendees can park
+                their
+                vehicles conveniently.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 mt-5 mt-lg-0 ">
+            <div class="icon-box" data-aos="zoom-in-left" data-aos-delay="200">
+              <div class="icon"><i class="bi bi-card-checklist" style="color: #3fcdc7;"></i></div>
+              <h4 class="title"><a href="">Capacity</a></h4>
+              <p class="description">Comfortably,the guest should assemble in the event area.Beforehand decide the
+                number
+                of guest and who the guest are.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mt-5">
+            <div class="icon-box" data-aos="zoom-in-left" data-aos-delay="300">
+              <div class="icon"><i class="bi bi-tags" style="color:#41cf2e;"></i></div>
+              <h4 class="title"><a href="">Cost</a></h4>
+              <p class="description">Plan a budget before planning an event.Apart from the value of the venue,you should
+                decide the expenses of food,decoratios and entertainment too.</p>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 mt-5">
+            <div class="icon-box" data-aos="zoom-in-left" data-aos-delay="400">
+              <div class="icon"><i class="bi bi-globe" style="color: #d6ff22;"></i></div>
+              <h4 class="title"><a href="">Atmosphere</a></h4>
+              <p class="description">For different occasions, the setting of the venue also varies.In a corporate
+                meeting,it provides a different set than scheduling a social event.</p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 mt-5">
+            <div class="icon-box" data-aos="zoom-in-left" data-aos-delay="500">
+              <div class="icon"><i class="bi bi-info-square" style="color: #4680ff;"></i></div>
+              <h4 class="title"><a href="">Services</a></h4>
+              <p class="description">The various type of services provided will be the kitchen,seating arrangement ,AV
+                facility,Catering and Cleanup crew.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Services Section -->
+
+    <!-- ======= Testimonials Section ======= -->
+    <section id="testimonials" class="testimonials fet">
+      <div class="container">
+
+        <div class="section-title" data-aos="zoom-out">
+          <h2>Testimonials</h2>
+          <p>What they are saying about us</p>
+        </div>
+
+        <div class="testimonials-slider swiper-container" data-aos="fade-up" data-aos-delay="100">
+          <div class="swiper-wrapper">
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  Nexus Hall has streamlined our processes. I’m loving the itinerary and budget tools the most! And your
+                  customer service has been fabulous.
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+                <h3>Saul Goodman</h3>
+                <h4> At Your Door Events</h4>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  I love the floor plan tool and how Nexus Hall keeps me organized with my events.
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+                <h3>Sara Wilsson</h3>
+                <h4>Designer</h4>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  It's the tool that helps us stay organized and keeps all our event details together online.
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+                <h3>Jena Karlis</h3>
+                <h4>Store Owner</h4>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  Your software has enabled me to manage payments, contracts and event details in one place. Thank you!
+
+
+
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+                <h3>Alex Quill</h3>
+                <h4> Hatchet Ranch Events</h4>
+              </div>
+            </div><!-- End testimonial item -->
+
+            <div class="swiper-slide">
+              <div class="testimonial-item">
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  My clients are much more organized on their things to do and have a better understanding of their
+                  budgeting thanks to Planning Pod.
+
+
+
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+                <h3>Tammy Waterman</h3>
+                <h4>Ideal Design Events</h4>
+              </div>
+            </div><!-- End testimonial item -->
+
+          </div>
+          <div class="swiper-pagination"></div>
+        </div>
+
+      </div>
+    </section><!-- End Testimonials Section -->
+
+
+    <!-- ======= F.A.Q Section ======= -->
+    <section id="faq" class="faq fet">
+      <div class="container">
+
+        <div class="section-title" data-aos="zoom-out">
+          <h2>F.A.Q</h2>
+          <p>Frequently Asked Questions</p>
+        </div>
+
+        <ul class="faq-list">
+
+          <li>
+            <div data-bs-toggle="collapse" class="collapsed question" href="#faq1">What does Hallbooking Online offer?<i
+                class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></div>
+            <div id="faq1" class="collapse" data-bs-parent=".faq-list">
+              <p>
+                Hirers can see a calendar of all the bookings for your venue. They can make a booking which the Bookings
+                Secretary can then review and approve.
+
+                The bookings are made on the Hallbooking Online website. Your venue will also have information pages
+                telling your hirers about the venue, with photographs and documentation.
+              </p>
+            </div>
+          </li>
+
+          <li>
+            <div data-bs-toggle="collapse" href="#faq2" class="collapsed question">Our venue has multiple rooms. Can
+              people choose which rooms to book?<i class="bi bi-chevron-down icon-show"></i><i
+                class="bi bi-chevron-up icon-close"></i></div>
+            <div id="faq2" class="collapse" data-bs-parent=".faq-list">
+              <p>
+                Yes. They can select specific rooms - or the whole building.
+              </p>
+            </div>
+          </li>
+
+          <li>
+            <div data-bs-toggle="collapse" href="#faq3" class="collapsed question">Can we personalise the description of
+              the venue and add photographs?<i class="bi bi-chevron-down icon-show"></i><i
+                class="bi bi-chevron-up icon-close"></i></div>
+            <div id="faq3" class="collapse" data-bs-parent=".faq-list">
+              <p>
+                Yes. You can write your own description and add photos with captions. If you need to make any changes
+                later on, you can do so easily.
+              </p>
+            </div>
+          </li>
+
+          <li>
+            <div data-bs-toggle="collapse" href="#faq4" class="collapsed question">How are hiring charges calculated?<i
+                class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></div>
+            <div id="faq4" class="collapse" data-bs-parent=".faq-list">
+              <p>
+                You can upload a PDF with the hiring charges. You can also add them to the description page.
+
+                We appreciate that venues have varying systems for calculating hiring charges, including discounts for
+                local residents and repeat bookings.
+
+                When sending an invoice, the Bookings Secretary simply writes in the amount due. Our system will invoice
+                for that amount.
+              </p>
+            </div>
+          </li>
+
+          <li>
+            <div data-bs-toggle="collapse" href="#faq5" class="collapsed question">Are these provisional or confirmed
+              bookings?<i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></div>
+            <div id="faq5" class="collapse" data-bs-parent=".faq-list">
+              <p>
+                All bookings are initially set as provisional.
+
+                When a provisional booking is made, the time is blocked off. The system will send an email telling the
+                hirer that the booking is provisional.
+
+                The venue administrator can decide whether to accept a booking. When the administrator confirms a
+                booking,
+                the system will send the hirer a confirmation email.
+              </p>
+            </div>
+          </li>
+
+          <li>
+            <div data-bs-toggle="collapse" href="#faq6" class="collapsed question">Do you take online payments?<i
+                class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></div>
+            <div id="faq6 " class="collapse" data-bs-parent=".faq-list">
+
+
+              <p>
+
+
+                Yes - if you would like to. The system can automatically add a PayPal or Stripe payment link and track
+                when the
+                payment has been made.
+
+                Alternatively, you can carry on with your existing payment system(s). Hirers can download booking and
+                payment
+                forms, if you wish. The Bookings Secretary or Treasurer can mark bookings as 'paid'. You can put the
+                BACS info
+                or bank transfer sort code and account number either on the invoice template, or on the provisional
+                booking
+                email.
+
+
+              </p>
+            </div>
+          </li>
+
+        </ul>
+
+      </div>
+    </section><!-- End F.A.Q Section -->
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact fet">
+      <div class="container">
+
+        <div class="section-title" data-aos="zoom-out">
+          <h2>Contact</h2>
+          <p>Contact Us</p>
+        </div>
+
+        <div class="row mt-5">
+
+          <div class="col-lg-12 mt-5 mt-lg-0" data-aos="fade-left">
+
+            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                </div>
+                <div class="col-md-6 form-group mt-3 mt-md-0">
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+                </div>
+              </div>
+              <div class="form-group mt-3">
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+              </div>
+              <div class="form-group mt-3">
+                <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+              </div>
+              <div class="my-3">
+                <div class="loading">Loading</div>
+                <div class="error-message"></div>
+                <div class="sent-message">Your message has been sent. Thank you!</div>
+              </div>
+              <div class="text-center"><button type="submit">Send Message</button></div>
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
+
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright. All Rights Reserved
+      </div>
+      <div class="credits">
+        Designed by <a href="#">Out Team</a>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+  <!-- ---------------------------------------------------------------- -->
+  <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
+    aria-hidden="true" id="history">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalScrollableTitle">Pending Booking</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+          </button>
+        </div>
+
+        <div class="modal-body">
+          <div class="table-responsive">
+            {% if user.is_authenticated %}
+
+            <table class="table table-bordered text-center">
+              <thead class="thead-dark">
+                <tr class="d-flex">
+                  <th scope="col" class="col-3">Venue Name</th>
+                  <th scope="col" class="col-3">Date</th>
+                  <th scope="col" class="col-2">Time</th>
+                  <th scope="col" class="col-2">Packege</th>
+                  <th scope="col" class="col-2">Action</th>
+                </tr>
+              </thead>
+              {% for historys in history %}
+              {% ifequal user.username historys.UserUname %}
+              {% ifequal historys.Status 'Pending' %}
+              <tbody>
+                <tr class="d-flex">
+                  {% for data in vanue %}
+                  {% ifequal data.username historys.VanueUname %}
+                  <td class="col-3">{{data.VanueName}}</td>
+                  {% endifequal %}
+                  {% endfor %}
+                  <td class="col-3">{{historys.Date}}</td>
+                  <td class="col-2">{{historys.Time}}</td>
+                  <td class="col-2">{{historys.Packege}}</td>
+                  <td class="col-2">
+                    <form action="cancel" method="POST">
+                      {% csrf_token %}
+                      <input type="hidden" name="cancelid" value="{{historys.id}}">
+                      <input type="hidden" name="cancel" value="Cancel"><input type="submit" class="btn btn-danger"
+                        value="Cancel">
+                    </form>
+                  </td>
+                </tr>
+              </tbody>
+              {% endifequal %}
+
+              {% endifequal %}
+              {% endfor %}
+            </table>
+            {% else %}
+            <h1>no data found</h1>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ---------------------------------------------- -->
+  <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel"
+    aria-hidden="true" id="historydata">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalScrollableTitle">Booking History</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+          </button>
+        </div>
+
+        <div class="modal-body">
+
+          <div class="table-responsive">
+            {% if user.is_authenticated %}
+
+            <table class="table table-bordered text-center">
+              <thead class="thead-dark">
+                <tr class="d-flex">
+                  <th scope="col" class="col-3">Venue Name</th>
+                  <th scope="col" class="col-3">Date</th>
+                  <th scope="col" class="col-2">Time</th>
+                  <th scope="col" class="col-2">Packege</th>
+                  <th scope="col" class="col-2">Status</th>
+                </tr>
+              </thead>
+              {% for historys in history %}
+              {% ifequal user.username historys.UserUname %}
+              {% ifequal historys.Status 'Pending' %}
+
+              {% else %}
+              <tbody>
+
+                <tr class="d-flex">
+                  {% for data in vanue %}
+                  {% ifequal data.username historys.VanueUname %}
+                  <td class="col-3">{{data.VanueName}}</td>
+                  {% endifequal %}
+                  {% endfor %}
+                  <td class="col-3">{{historys.Date}}</td>
+                  <td class="col-2">{{historys.Time}}</td>
+                  <td class="col-2">{{historys.Packege}}</td>
+                  {% ifequal historys.Status 'Approve' %}
+                  <td class="col-2" style="background-color: green; color: white;">{{historys.Status}}</td>
+                  {% endifequal %}
+                  {% ifequal historys.Status 'Reject' %}
+                  <td class="col-2" style="background-color: red; color: white;">{{historys.Status}}</td>
+                  {% endifequal %}
+                  {% ifequal historys.Status 'Cancel' %}
+                  <td class="col-2" style="background-color: rgb(94, 4, 4); color: white;">{{historys.Status}}</td>
+                  {% endifequal %}
+                </tr>
+              <tbody>
+
+                {% endifequal %}
+                {% endifequal %}
+                {% endfor %}
+            </table>
+            {% else %}
+            <h1>no data found</h1>
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ----------------------------------------------------------------------------- -->
+  <!-- Vendor JS Files -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
+  <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+  <!-- <script src="assets/vendor/php-email-form/validate.js"></script> -->
+  <script src="{%static 'js/purecounter.js' %}"></script>
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+  <!-- <script src="/path/to/noframework.waypoints.min.js"></script> -->
+
+  <!-- Template Main JS File -->
+  <!-- <script src="{%static 'js/userdash.js' %}"></script> -->
+  <script src="{%static 'js/main.js' %}"></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Selecao Bootstrap Template - Index</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'img/favicon.png' %}" rel="icon">
+  <link href="{% static 'img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Vendor CSS Files -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+  <link href="{% static 'css/aos.css' %}" rel="stylesheet" type="text/css" media="screen">
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" media="screen">
+
+  <!-- Template Main JS File -->
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top d-flex align-items-center  header-transparent ">
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <div class="logo">
+        <h1><a href="#">Nexus Hall</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      </div>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li>{% if user.is_authenticated %}
+            <a class="logout" href="{% url 'logoutpanel' %}">Logout</a>
+            {% endif %}
+          </li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex flex-column justify-content-end align-items-center">
+    <div id="heroCarousel" data-bs-interval="5000" class="container carousel carousel-fade" data-bs-ride="carousel">
+
+      <!-- Slide 1 -->
+      <div class="carousel-item active">
+        <div class="carousel-container">
+          <h2 class="animate__animated animate__fadeInDown">Welcome to <span>Nexus Hall</span></h2>
+          <p class="animate__animated fanimate__adeInUp">Streamline how you manage your event bookings and customers
+            with Nexus Hall management software.Catalogue my processes by keeping all event information in one place.
+          </p>
+          <div class="row mt-5">
+
+
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <svg class="hero-waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+      viewBox="0 24 150 28 " preserveAspectRatio="none">
+      <defs>
+        <path id="wave-path" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z">
+      </defs>
+      <g class="wave1">
+        <use xlink:href="#wave-path" x="50" y="3" fill="rgba(255,255,255, .1)">
+      </g>
+      <g class="wave2">
+        <use xlink:href="#wave-path" x="50" y="0" fill="rgba(255,255,255, .2)">
+      </g>
+      <g class="wave3">
+        <use xlink:href="#wave-path" x="50" y="9" fill="#fff">
+      </g>
+    </svg>
+
+  </section><!-- End Hero -->
+
+  <main id="main">
+
+    <!-- ======= Features Section ======= -->
+    <section id="features" class="features">
+      <div class="container">
+        {% if messages %}
+        {% for msg in messages %}
+        <div class="alert alert-warning alert-dismissible fade show mt-3 text-center" role="alert">
+          <strong>
+            {{ msg }}ss
+          </strong>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+        </div>
+
+        {% endfor %}
+        {% endif %}
+
+        <ul class="nav nav-tabs row d-flex">
+          <li class="nav-item col-6" data-aos="zoom-in">
+            <a class="nav-link active show" data-bs-toggle="tab" href="#tab-1">
+              <i class="ri-gps-line"></i>
+              <h4 class="d-none d-lg-block">Live Booking</h4>
+            </a>
+          </li>
+          <li class="nav-item col-6" data-aos="zoom-in" data-aos-delay="100">
+            <a class="nav-link" data-bs-toggle="tab" href="#tab-2">
+              <i class="ri-body-scan-line"></i>
+              <h4 class="d-none d-lg-block">Booking History</h4>
+            </a>
+          </li>
+        </ul>
+
+        <div class="tab-content" data-aos="fade-up">
+          <div class="tab-pane active show" id="tab-1">
+            <div class="row">
+              <div class="col-lg-12 order-2 order-lg-1 mt-3 mt-lg-0">
+
+                <div class="container mt-2">
+                  <div class="table-responsive">
+                    {% if user.is_authenticated %}
+
+                    <table class="table align-middle table-bordered table-striped table-hover text-center">
+                      <thead>
+                        <tr class="d-flex">
+
+                          <th class="col-2">Name</th>
+                          <th class="col-2">Email</th>
+                          <th class="col-2">Mobile No.</th>
+                          <th class="col-1">Date</th>
+                          <th class="col-1">Time</th>
+                          <th class="col-2">Packege</th>
+                          <!-- <th>Service</th> -->
+                          <th class="col-2">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody id="select-btn">
+                        {% for historys in history %}
+                        {% ifequal user.username historys.VanueUname %}
+                        {% ifequal historys.Status 'Pending' %}
+
+                        <tr class="d-flex">
+                          <td class="col-2">{{historys.Name}}</td>
+                          <td class="col-2"><marquee class="col-12">{{historys.Email}}</marquee></td>
+                          <td class="col-2">{{historys.Number}}</td>
+                          <td class="col-1">{{historys.Date}}</td>
+                          <td class="col-1">{{historys.Time}}</td>
+                          <td class="col-2">{{historys.Packege}}</td>
+                          <!-- <td>{{historys.Service}}</td> -->
+                          <td class="col-2">
+                            <form action="approve" method="POST">
+                              {% csrf_token %}
+                              <input type="hidden" name="approveid" value="{{historys.id}}">
+                              <input type="hidden" name="email" value="{{historys.Email}}">
+                              <input type="hidden" name="name" value="{{historys.Name}}">
+                              <input type="hidden" name="vname" value="{{historys.VenueName}}">
+
+                              <input type="hidden" name="approve" value="Approve" >
+                              <input type="submit" value="Approve" class="btn btn-success">
+                            </form>
+                            <hr>
+                            <form action="reject" method="POST">
+                              {% csrf_token %}
+
+                              <input type="hidden" name="reject" value="Reject">
+                              <input type="hidden" name="rejectid" value="{{historys.id}}">
+                              <input type="hidden" name="email" value="{{historys.Email}}">
+                              <input type="hidden" name="name" value="{{historys.Name}}">
+                              <input type="hidden" name="vname" value="{{historys.VenueName}}">
+                              <input type="submit" value="  Reject  " class="btn btn-danger">
+                            </form>
+                          </td>
+
+                        </tr>
+                        {% endifequal %}
+                        {% endifequal %}
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                    {% else %}
+                    <h1>no data found</h1>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane" id="tab-2">
+            <div class="row">
+              <div class="col-lg-12 order-2 order-lg-1 mt-3 mt-lg-0">
+                <div class="container mt-2">
+                  <div class="table-responsive">
+                    {% if user.is_authenticated %}
+
+                    <table class="table align-middle table-bordered table-striped table-hover text-center">
+                      <thead>
+                        <tr class="d-flex">
+
+                      <th class="col-2">Name</th>
+                      <th class="col-2">Email</th>
+                      <th class="col-2">Mobile No.</th>
+                      <th class="col-1">Date</th>
+                      <th class="col-1">Time</th>
+                      <th class="col-2">Packege</th>
+                      <!-- <th>Service</th> -->
+                      <th class="col-2">Status</th>
+                      </tr>
+                      </thead>
+                      <tbody id="select-btn">
+                        {% for historys in history %}
+                        {% ifequal user.username historys.VanueUname %}
+                        {% ifequal historys.Status 'Pending' %}
+
+                        {% else %}
+                        <tr class="d-flex">
+                          <td class="col-2">{{historys.Name}}</td>
+                          <td class="col-2"><marquee class="col-12">{{historys.Email}}</marquee></td>
+                          <td class="col-2">{{historys.Number}}</td>
+                          <td class="col-1">{{historys.Date}}</td>
+                          <td class="col-1">{{historys.Time}}</td>
+                          <td class="col-2">{{historys.Packege}}</td>
+                          <!-- <td>{{historys.Service}}</td> -->
+                          {% ifequal historys.Status 'Approve' %}
+                          <td class="col-2" style="background-color: green;color: white;">{{historys.Status}}</td>
+                          {% endifequal %}
+                          {% ifequal historys.Status 'Reject' %}
+                          <td class="col-2" style="background-color: red;color: white;">{{historys.Status}}</td>
+                          {% endifequal %}
+                          {% ifequal historys.Status 'Cancel' %}
+                          <td class="col-2" style="background-color: rgb(78, 2, 2);color: white;">{{historys.Status}}
+                          </td>
+                          {% endifequal %}
+                        </tr>
+                        {% endifequal %}
+                        {% endifequal %}
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                    {% else %}
+
+                    <h1>no data found</h1>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- End Features Section -->
+
+
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container">
+      <h3>Nexus Hall</h3>
+      <p>Streamline how you manage your event bookings and customers
+        with Nexus Hall management software</p>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.min.js"></script>
+  <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+  <!-- <script src="{%static 'vendor/php-email-form/validate.js' %}"></script> -->
+  <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+
+  <script src="{%static 'js/main.js' %}"></script>
+
+</body>
+
+</html>
